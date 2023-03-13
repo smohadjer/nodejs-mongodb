@@ -1,5 +1,5 @@
 import express from 'express';
-import fetchData from '/api/api.js';
+import fetchData from './api/api.js';
 
 const app = express();
 const port = 8000;

@@ -21,10 +21,13 @@ async function run() {
     const movie = await movies.findOne(query);
     return movie;
     */
+
+    /*
     await users.insertOne({
       userId: 3,
       userName: 'Majid'
     });
+    */
 
     const data = await users.find({}).toArray();
     return data;
@@ -43,22 +46,6 @@ export default async (req, res) => {
   });
   table += '</table>';
 
-  const html = `<!DOCTYPE html>
-  <html lang="en">
-      <head>
-          <meta charset="utf-8" />
-          <title>MongoDB demo</title>
-          <meta name="description" content="" />
-          <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </head>
-      <body>
-          <main>
-            <h1>List</h1>
-              ${table}
-          </main>
-      </body>
-  </html>`
-
   //  res.json({message: data});
-  res.status(200).send(html);
+  res.status(200).send(table);
 }
