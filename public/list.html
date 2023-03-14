@@ -52,7 +52,7 @@
             <h1>Reading and writing data to database<br />(MongoDB + serverless Nodejs)</h1>
             <section>
                 <div>
-                    <form method="post" action="/api/register.js">
+                    <form id="register" method="post" action="/api/register.js">
                         <p>
                             <label>First Name:</label><br>
                             <input name="firstname"></p>
@@ -65,6 +65,12 @@
                             <input name="age">
                         </p>
                         <button>Register</button>
+                    </form>
+                    <form id="delete" method="post" action="/api/delete.js">
+                        <p>
+                            <label>Delete by first name:</label><br>
+                            <input name="firstname"></p>
+                        <button>Delete</button>
                     </form>
                 </div>
                 <div>

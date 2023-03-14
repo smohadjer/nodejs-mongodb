@@ -17,7 +17,8 @@ const fetchData = () => {
       }
   });
 }
-const form = document.querySelector('form');
+const form = document.querySelector('form#register');
+const formDelete = document.querySelector('form#delete');
 
 fetchData();
 
@@ -37,6 +38,26 @@ form.addEventListener('submit', (e) => {
   }
   http.send(queryString);
   form.reset();
+  document.getElementById('test').innerHTML = '';
+  document.getElementById('svg').hidden = false;
+});
+
+formDelete.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const formData = new FormData(formDelete);
+  const queryString = new URLSearchParams(formData).toString()
+  const http = new XMLHttpRequest();
+  http.open(formDelete.getAttribute('method'), formDelete.getAttribute('action'));
+  http.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+  http.onreadystatechange = function() {
+      if (http.readyState == 4 && http.status == 200) {
+          console.log(http.responseText);
+
+          fetchData();
+      }
+  }
+  http.send(queryString);
+  formDelete.reset();
   document.getElementById('test').innerHTML = '';
   document.getElementById('svg').hidden = false;
 });

@@ -1,5 +1,6 @@
-import database from './db.js';
+import client from './db.js';
 
+const database = client.db('test');
 const users = database.collection('customers');
 
 async function run() {
@@ -13,7 +14,7 @@ async function run() {
 }
 
 export default async (req, res) => {
-  const data = await run();
+  const data = await run().catch(console.dir);
 
   res.json({data: data});
   //res.status(200).send(table);
