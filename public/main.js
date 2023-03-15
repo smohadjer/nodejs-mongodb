@@ -6,12 +6,13 @@ const fetchData = () => {
       document.getElementById('svg').hidden = true;
 
       if (data.length > 0) {
-          let table = '<table><tr><th>First Name</th><th>Last Name</th><th>Age</th></tr>';
+          let html = `<p>${data.length} entries were found.</p>`;
+          html += '<table><tr><th>First Name</th><th>Last Name</th><th>Age</th></tr>';
           data.forEach((item) => {
-              table += `<tr><td>${item.firstname}</td><td>${item.lastname}</td><td>${item.age}</td></tr>`
+            html += `<tr><td>${item.firstname}</td><td>${item.lastname}</td><td>${item.age}</td></tr>`
           });
-          table += '</table>';
-          document.getElementById('test').innerHTML = table;
+          html += '</table>';
+          document.getElementById('test').innerHTML = html;
       } else {
           document.getElementById('test').innerHTML = 'No data found!';
       }
