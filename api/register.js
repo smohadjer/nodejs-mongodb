@@ -6,9 +6,9 @@ const users = database.collection('customers');
 async function run(req) {
   try {
     await users.insertOne({
-      firstname: req.body.firstname,
-      lastname: req.body.lastname,
-      age: req.body.age
+      firstname: req.body.firstname.trim(),
+      lastname: req.body.lastname.trim(),
+      age: req.body.age.trim()
     });
   } finally {
     //Ensures that the client will close when you finish/error
