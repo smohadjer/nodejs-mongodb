@@ -1,14 +1,15 @@
 import express from 'express';
-import fetchData from './api/api.js';
+import fetch from './api/fetch.js';
 
 const app = express();
+
+app.use(express.static('public'));
+
 const port = 8000;
 app.listen(port, () => {
   console.log(`Server started at port ${port}`);
 });
 
-app.get('/list.html', async (req, res) => {
-  fetchData(req, res);
+app.get('/api/fetch.js', (req, res) => {
+  fetch(req, res);
 });
-
-
