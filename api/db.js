@@ -1,4 +1,3 @@
-import { MongoClient } from 'mongodb';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -7,6 +6,5 @@ dotenv.config();
 const uri =
 `mongodb+srv://${process.env.db_username}:${process.env.db_password}@cluster0.8qwlizm.mongodb.net/?retryWrites=true&w=majority`;
 
-const client = new MongoClient(uri);
 
-export default client;
+export default uri;
