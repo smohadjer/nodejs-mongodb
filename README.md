@@ -1,5 +1,5 @@
 # Demo on Vercel:
-https://nodejs-mongodb-gamma.vercel.app/list.html
+https://nodejs-mongodb-gamma.vercel.app/
 
 # Usage
 
