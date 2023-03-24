@@ -7,9 +7,32 @@ const fetchData = () => {
 
       if (data.length > 0) {
           let html = `<p>${data.length} entries were found.</p>`;
-          html += '<table><tr><th>First Name</th><th>Last Name</th><th>Age</th></tr>';
+          html += `<table>
+          <tr>
+            <th></th>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Age</th>
+            <th>Gender</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Date of Birth</th>
+            <th>Height</th>
+          </tr>`;
           data.forEach((item) => {
-            html += `<tr><td>${item.firstname}</td><td>${item.lastname}</td><td>${item.age}</td></tr>`
+            html += `<tr>
+              <td><button class="delete">DEL</button></td>
+              <td>${item.id}</td>
+              <td>${item.firstName}</td>
+              <td>${item.lastName}</td>
+              <td>${item.age}</td>
+              <td>${item.gender}</td>
+              <td>${item.email || ''}</td>
+              <td>${item.phone || ''}</td>
+              <td>${item.birthDate || ''}</td>
+              <td>${item.height || ''}</td>
+            </tr>`
           });
           html += '</table>';
           document.getElementById('test').innerHTML = html;
@@ -18,47 +41,40 @@ const fetchData = () => {
       }
   });
 }
-const form = document.querySelector('form#register');
-const formDelete = document.querySelector('form#delete');
-
-fetchData();
-
-form.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const formData = new FormData(form);
-  const queryString = new URLSearchParams(formData).toString()
+const postData = (url, method, queryString, callback) => {
   const http = new XMLHttpRequest();
-  http.open(form.getAttribute('method'), form.getAttribute('action'));
+  http.open(method, url);
   http.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
   http.onreadystatechange = function() {
       if (http.readyState == 4 && http.status == 200) {
           console.log(http.responseText);
-
-          fetchData();
+          callback();
       }
   }
   http.send(queryString);
-  form.reset();
+};
+
+fetchData();
+
+// event listener for delete button
+document.querySelector('.table-wrapper').addEventListener('click', (e) => {
+  const id = e.target.closest('td').nextElementSibling.textContent;
+  const queryString = new URLSearchParams({id: id}).toString();
+
+  postData('/api/delete.js', 'post', queryString, fetchData);
   document.getElementById('test').innerHTML = '';
   document.getElementById('svg').hidden = false;
 });
 
-formDelete.addEventListener('submit', (e) => {
+const form = document.querySelector('form#register');
+form.addEventListener('submit', (e) => {
   e.preventDefault();
-  const formData = new FormData(formDelete);
+  const formData = new FormData(form);
   const queryString = new URLSearchParams(formData).toString()
-  const http = new XMLHttpRequest();
-  http.open(formDelete.getAttribute('method'), formDelete.getAttribute('action'));
-  http.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-  http.onreadystatechange = function() {
-      if (http.readyState == 4 && http.status == 200) {
-          console.log(http.responseText);
 
-          fetchData();
-      }
-  }
-  http.send(queryString);
-  formDelete.reset();
+  postData(form.getAttribute('action'), form.getAttribute('method'), queryString, fetchData);
+
+  form.reset();
   document.getElementById('test').innerHTML = '';
   document.getElementById('svg').hidden = false;
 });

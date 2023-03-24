@@ -10,6 +10,7 @@ app.use(express.static('public'));
 
 // parse application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: false }))
+app.use(express.json());
 
 const port = 8000;
 app.listen(port, () => {

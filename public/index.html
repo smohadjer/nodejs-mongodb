@@ -1,51 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8" />
+        <meta charset="utf-8">
         <title>MongoDB demo</title>
-        <meta name="description" content="" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <style>
-            section {
-                display: flex;
-            }
-
-            form {
-                background: #eee;
-                padding: 1em;
-            }
-
-            form input, form button {
-                font-size: 16px;
-            }
-
-            #test {
-                margin-left: 2em;
-            }
-
-            table {
-                border-collapse: collapse;
-            }
-
-            th {
-                padding-right: 10px;
-            }
-
-            table td {
-                padding: 5px 10px 5px 0;
-            }
-
-            table tr:nth-child(even) td {
-                background: #eee;
-            }
-
-            svg {
-                display: block;
-                margin: 0 auto;
-                width: 100px;
-                height: 100px;
-            }
-        </style>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/style.css">
     </head>
     <body>
         <main>
@@ -54,26 +14,35 @@
                 <div>
                     <form id="register" method="post" action="/api/register.js">
                         <p>
+                            <label>ID:</label><br>
+                            <input name="id"></p>
+                        <p>
+                        <p>
                             <label>First Name:</label><br>
-                            <input name="firstname"></p>
+                            <input name="firstName"></p>
                         <p>
                             <label>Last Name:</label><br>
-                            <input name="lastname">
+                            <input name="lastName">
                         </p>
                         <p>
                             <label>Age:</label><br>
                             <input name="age" type="number">
                         </p>
-                        <button>Register</button>
-                    </form>
-                    <form id="delete" method="post" action="/api/delete.js">
                         <p>
-                            <label>Delete by first name:</label><br>
-                            <input name="firstname"></p>
-                        <button>Delete</button>
+                            <label>Gender:</label><br>
+                            <select name="gender">
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                        </p>
+                        <p>
+                            <label>Email:</label><br>
+                            <input name="email" type="email">
+                        </p>
+                        <button>Add User</button>
                     </form>
                 </div>
-                <div>
+                <div class="table-wrapper">
                     <div id="svg">
                         <svg id="loader" version="1.1" id="L9" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve">
                             <path fill="#666" d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50">

@@ -7,8 +7,10 @@ async function run(req) {
   try {
     await client.connect();
     const database = client.db('test');
-    const users = database.collection('customers');
-    const result = await users.deleteOne({ firstname: req.body.firstname });
+    const users = database.collection('users');
+    const id = Number(req.body.id);
+    console.log(req.body);
+    const result = await users.deleteOne({ id: id });
 
     if (result.deletedCount === 1) {
       console.log("Successfully deleted one document.");

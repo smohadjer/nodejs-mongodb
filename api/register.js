@@ -8,11 +8,14 @@ async function run(req) {
     console.log('openning db...');
     await client.connect();
     const database = client.db('test');
-    const users = database.collection('customers');
+    const users = database.collection('users');
     await users.insertOne({
-      firstname: req.body.firstname.trim(),
-      lastname: req.body.lastname.trim(),
-      age: req.body.age.trim()
+      id: Number(req.body.id.trim()),
+      firstName: req.body.firstName.trim(),
+      lastName: req.body.lastName.trim(),
+      age: req.body.age.trim(),
+      gender: req.body.gender.trim(),
+      email: req.body.email.trim()
     });
   } catch (e) {
     console.error(e);
