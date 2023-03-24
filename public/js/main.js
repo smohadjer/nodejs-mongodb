@@ -17,12 +17,18 @@ fetchData();
 
 // event listener for delete button
 document.querySelector('.table-wrapper').addEventListener('click', (e) => {
+  console.log(e.target);
   const id = e.target.closest('td').nextElementSibling.textContent;
-  const queryString = new URLSearchParams({id: id}).toString();
 
-  postData('/api/delete.js', 'post', queryString, fetchData);
-  document.getElementById('test').innerHTML = '';
-  document.getElementById('svg').hidden = false;
+  if (e.target.classList.contains('delete')) {
+    const queryString = new URLSearchParams({id: id}).toString();
+
+    postData('/api/delete.js', 'post', queryString, fetchData);
+    document.getElementById('test').innerHTML = '';
+    document.getElementById('svg').hidden = false;
+  } else {
+    fetchData(id);
+  }
 });
 
 const form = document.querySelector('form#register');

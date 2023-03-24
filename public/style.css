@@ -33,8 +33,20 @@ table tr:nth-child(even) td {
     background: #ddd;
 }
 
+table td.actions {
+  min-width: 95px;
+}
+
 .delete {
   background: red;
+  border: solid 1px #fff;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+}
+
+.details {
+  background: green;
   border: solid 1px #fff;
   border-radius: 5px;
   color: white;

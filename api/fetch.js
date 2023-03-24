@@ -3,13 +3,19 @@ import { MongoClient } from 'mongodb';
 
 const client = new MongoClient(uri);
 
-async function run() {
+async function run(req) {
   try {
     console.log('openning db...');
     await client.connect();
     const database = client.db('test');
     const users = database.collection('users');
-    const data = await users.find({}).sort({ id: 1 }).toArray();
+    let data;
+    if (req.body.id) {
+      data = await users.findOne({id: Number(req.body.id)});
+      console.log(data);
+    } else {
+      data = await users.find({}).sort({ id: 1 }).toArray();
+    }
     return data;
   } catch (e) {
     console.error(e);
@@ -21,7 +27,8 @@ async function run() {
 }
 
 export default async (req, res) => {
-  const data = await run().catch(console.dir);
+  console.log(req.body.id);
+  const data = await run(req).catch(console.dir);
 
   res.json({data: data});
   //res.status(200).send(table);

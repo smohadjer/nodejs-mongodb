@@ -1,5 +1,12 @@
-export const fetchData = () => {
-  fetch('/api/fetch.js')
+export const fetchData = (id) => {
+  fetch('/api/fetch.js', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({id: id})
+  })
   .then((response) => response.json())
   .then((json) => {
       const data = json.data;
@@ -22,7 +29,7 @@ export const fetchData = () => {
           </tr>`;
           data.forEach((item) => {
             html += `<tr>
-              <td><button class="delete">DEL</button></td>
+              <td class="actions"><button class="delete">DEL</button> <button class="details">INFO</button></td>
               <td>${item.id}</td>
               <td>${item.firstName}</td>
               <td>${item.lastName}</td>
@@ -39,5 +46,8 @@ export const fetchData = () => {
       } else {
           document.getElementById('test').innerHTML = 'No data found!';
       }
-  });
+  })
+  .catch((error) => {
+    console.log(error);
+  })
 };
