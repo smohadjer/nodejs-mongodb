@@ -9,45 +9,51 @@
     </head>
     <body>
         <main>
-            <dialog>
-                <button id="close">Close</button>
-                <div id="dialog__content"></div>
-            </dialog>
-            <h1>Reading and writing data to database<br />(MongoDB + serverless Nodejs)</h1>
-            <button id="reset">Reset Changes</button><br><br>
+            <header>
+                <h1>MongoDB + Nodejs</h1>
+                <button id="reset">Reset</button>
+                <button id="addUser_btn">Add User</button>
+            </header>
 
-            <section>
-                <div>
-                    <form id="register" method="post" action="/api/register.js">
-                        <p>
-                            <label>ID:</label><br>
-                            <input name="id"></p>
-                        <p>
-                        <p>
-                            <label>First Name:</label><br>
-                            <input name="firstName"></p>
-                        <p>
-                            <label>Last Name:</label><br>
-                            <input name="lastName">
-                        </p>
-                        <p>
-                            <label>Age:</label><br>
-                            <input name="age" type="number">
-                        </p>
-                        <p>
-                            <label>Gender:</label><br>
-                            <select name="gender">
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
-                            </select>
-                        </p>
-                        <p>
-                            <label>Email:</label><br>
-                            <input name="email" type="email">
-                        </p>
-                        <button>Add User</button>
-                    </form>
-                </div>
+            <section id="details" class="hidden">
+                <button class="close">Close</button>
+                <div id="details__content"></div>
+            </section>
+
+            <section id="addUser" class="hidden">
+                <button class="close">Close</button>
+                <form id="register" method="post" action="/api/register.js">
+                    <p>
+                        <label>ID:</label><br>
+                        <input name="id"></p>
+                    <p>
+                    <p>
+                        <label>First Name:</label><br>
+                        <input name="firstName"></p>
+                    <p>
+                        <label>Last Name:</label><br>
+                        <input name="lastName">
+                    </p>
+                    <p>
+                        <label>Age:</label><br>
+                        <input name="age" type="number">
+                    </p>
+                    <p>
+                        <label>Gender:</label><br>
+                        <select name="gender">
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </p>
+                    <p>
+                        <label>Email:</label><br>
+                        <input name="email" type="email">
+                    </p>
+                    <button>Add User</button>
+                </form>
+            </section>
+
+            <section id="listing">
                 <div class="table-wrapper">
                     <div id="svg">
                         <svg id="loader" version="1.1" id="L9" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve">
@@ -68,11 +74,5 @@
             </section>
         </main>
         <script type="module" src="./js/main.js"></script>
-        <script>
-            var dialog = document.querySelector('dialog');
-            document.querySelector('#close').onclick = function() {
-                dialog.close();
-            };
-        </script>
     </body>
 </html>

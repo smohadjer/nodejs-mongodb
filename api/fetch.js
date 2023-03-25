@@ -14,7 +14,8 @@ async function run(req) {
       data = await users.findOne({id: Number(req.body.id)});
       console.log(data);
     } else {
-      data = await users.find({status: null}).sort({ id: 1 }).toArray();
+      const query = { "status" : { "$exists" : false } };
+      data = await users.find(query).sort({ id: 1 }).toArray();
     }
     return data;
   } catch (e) {

@@ -12,7 +12,6 @@ const postData = (url, method, queryString, callback) => {
   }
   http.send(queryString);
 };
-
 const parseData = (json) => {
   const data = json.data;
 
@@ -47,8 +46,25 @@ const parseData = (json) => {
       document.getElementById('test').innerHTML = 'No data found!';
   }
 };
+const show = (sectionId) => {
+  console.log(sectionId);
+  document.querySelectorAll('section').forEach((section) => {
+    section.classList.add('hidden');
+  });
+  document.querySelector(sectionId).classList.remove('hidden');
+};
 
 fetchData(null, parseData);
+
+document.querySelector('#addUser_btn').addEventListener('click', (e) => {
+  show('#addUser');
+});
+
+document.querySelectorAll('.close').forEach((closeBtn) => {
+  closeBtn.addEventListener('click', (e) => {
+    show('#listing');
+  });
+});
 
 document.querySelector('#reset').addEventListener('click', (e) => {
   postData('/api/update.js', 'post', null, function() {
@@ -75,14 +91,15 @@ document.querySelector('.table-wrapper').addEventListener('click', (e) => {
       console.log(data);
       let html = `<h2>${data.firstName} ${data.lastName}</h2>
       <table>`;
-      let dialog = document.querySelector('dialog');
+
+      let details = document.querySelector('#details__content');
       for (const [key, value] of Object.entries(data)) {
         console.log(key, value);
         html += `<tr><td>${key}</td><td>${value}</td></tr>`;
       }
       html += '</table>'
-      dialog.querySelector('#dialog__content').innerHTML = html;
-      dialog.show();
+      details.innerHTML = html;
+      show('#details');
     });
   }
 });
@@ -100,4 +117,5 @@ form.addEventListener('submit', (e) => {
   form.reset();
   document.getElementById('test').innerHTML = '';
   document.getElementById('svg').hidden = false;
+  show('#listing');
 });

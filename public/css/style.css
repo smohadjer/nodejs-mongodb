@@ -1,26 +1,26 @@
-
 section {
-    display: flex;
+    background: #eee;
+    margin-top: 1em;
+    padding: 1em;
 }
 
-form {
-    background: #eee;
-    padding: 1em;
+section.hidden {
+    display: none;
 }
 
 form input, form button {
     font-size: 16px;
 }
 
+#details__content,
 .table-wrapper {
-    width: 98%;
+    width: 100%;
     overflow-x: auto;
-    margin-left: 2%;
 }
 
 table {
     border-collapse: collapse;
-    background: #eee;
+    width: 100%;
 }
 
 table th,
