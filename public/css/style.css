@@ -59,3 +59,13 @@ svg {
     width: 100px;
     height: 100px;
 }
+
+dialog {
+    height: 100%;
+    width: 100vw;
+    background: #f0fff0;
+    overflow: auto;
+    border: 0;
+    margin: 0;
+    top: 0;
+}

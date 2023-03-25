@@ -10,13 +10,18 @@ async function run(req) {
     const users = database.collection('users');
     const id = Number(req.body.id);
     console.log(req.body);
-    const result = await users.deleteOne({ id: id });
+    //const result = await users.deleteOne({ id: id });
 
+    var newvalues = { $set: {status: "inactive" } };
+    const result = await users.updateOne({ id: id }, newvalues);
+
+    /*
     if (result.deletedCount === 1) {
       console.log("Successfully deleted one document.");
     } else {
       console.log("No documents matched the query. Deleted 0 documents.");
     }
+    */
   } catch (e) {
     console.error(e);
   } finally {

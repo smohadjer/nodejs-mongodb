@@ -9,14 +9,8 @@ async function run(req) {
     await client.connect();
     const database = client.db('test');
     const users = database.collection('users');
-    let data;
-    if (req.body.id) {
-      data = await users.findOne({id: Number(req.body.id)});
-      console.log(data);
-    } else {
-      data = await users.find({status: null}).sort({ id: 1 }).toArray();
-    }
-    return data;
+
+    await users.updateMany({ status: "inactive"}, { $unset: { status: "inactive"}});
   } catch (e) {
     console.error(e);
   } finally {
@@ -28,8 +22,8 @@ async function run(req) {
 
 export default async (req, res) => {
   console.log(req.body.id);
-  const data = await run(req).catch(console.dir);
+  await run(req).catch(console.dir);
 
-  res.json({data: data});
+  return res.send('reset done');
   //res.status(200).send(table);
 }

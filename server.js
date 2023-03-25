@@ -2,6 +2,8 @@ import express from 'express';
 import fetch from './api/fetch.js';
 import register from './api/register.js';
 import remove from './api/delete.js';
+import update from './api/update.js';
+
 //import cors from 'cors';
 import bodyParser from 'body-parser';
 
@@ -35,4 +37,8 @@ app.post('/api/register.js', (req, res) => {
 
 app.post('/api/delete.js', (req, res) => {
   remove(req, res);
+});
+
+app.post('/api/update.js', (req, res) => {
+  update(req, res);
 });

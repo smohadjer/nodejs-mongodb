@@ -5,11 +5,17 @@
         <title>MongoDB demo</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="/style.css">
+        <link rel="stylesheet" href="./css/style.css">
     </head>
     <body>
         <main>
+            <dialog>
+                <button id="close">Close</button>
+                <div id="dialog__content"></div>
+            </dialog>
             <h1>Reading and writing data to database<br />(MongoDB + serverless Nodejs)</h1>
+            <button id="reset">Reset Changes</button><br><br>
+
             <section>
                 <div>
                     <form id="register" method="post" action="/api/register.js">
@@ -62,5 +68,11 @@
             </section>
         </main>
         <script type="module" src="./js/main.js"></script>
+        <script>
+            var dialog = document.querySelector('dialog');
+            document.querySelector('#close').onclick = function() {
+                dialog.close();
+            };
+        </script>
     </body>
 </html>
