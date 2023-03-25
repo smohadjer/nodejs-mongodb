@@ -16,9 +16,10 @@ const parseData = (json) => {
   const data = json.data;
 
   document.getElementById('svg').hidden = true;
+  const listing = document.getElementById('listing__content');
 
   if (data.length > 0) {
-      let html = `<p>${data.length} entries were found.</p>`;
+      let html = `<p><strong>${data.length}</strong> entries were found.</p>`;
       html += `<table>
       <tr>
         <th></th>
@@ -31,7 +32,8 @@ const parseData = (json) => {
       </tr>`;
       data.forEach((item) => {
         html += `<tr>
-          <td class="actions"><button class="delete">DEL</button> <button class="details">INFO</button></td>
+          <td class="actions"><button class="delete">X</button>
+          <button class="details">Details</button></td>
           <td>${item.id}</td>
           <td>${item.firstName}</td>
           <td>${item.lastName}</td>
@@ -41,81 +43,84 @@ const parseData = (json) => {
         </tr>`
       });
       html += '</table>';
-      document.getElementById('test').innerHTML = html;
+      listing.innerHTML = html;
   } else {
-      document.getElementById('test').innerHTML = 'No data found!';
+    listing.innerHTML = 'No data found!';
   }
 };
 const show = (sectionId) => {
-  console.log(sectionId);
   document.querySelectorAll('section').forEach((section) => {
     section.classList.add('hidden');
   });
   document.querySelector(sectionId).classList.remove('hidden');
 };
-
-fetchData(null, parseData);
-
-document.querySelector('#addUser_btn').addEventListener('click', (e) => {
-  show('#addUser');
-});
-
-document.querySelectorAll('.close').forEach((closeBtn) => {
-  closeBtn.addEventListener('click', (e) => {
-    show('#listing');
+const addEventListeners = () => {
+  document.querySelector('#addUser_btn').addEventListener('click', (e) => {
+    show('#addUser');
   });
-});
 
-document.querySelector('#reset').addEventListener('click', (e) => {
-  postData('/api/update.js', 'post', null, function() {
-    fetchData(null, parseData);
+  document.querySelectorAll('.close').forEach((closeBtn) => {
+    closeBtn.addEventListener('click', (e) => {
+      show('#listing');
+    });
   });
-});
 
-document.querySelector('.table-wrapper').addEventListener('click', (e) => {
-  console.log(e.target);
-  const id = e.target.closest('td').nextElementSibling.textContent;
-
-  if (e.target.classList.contains('delete')) {
-    const queryString = new URLSearchParams({id: id}).toString();
-
-    postData('/api/delete.js', 'post', queryString, function() {
+  document.querySelector('#reset').addEventListener('click', (e) => {
+    document.getElementById('listing__content').innerHTML = '';
+    document.getElementById('svg').hidden = false;
+    postData('/api/update.js', 'post', null, function() {
       fetchData(null, parseData);
     });
-    document.getElementById('test').innerHTML = '';
-    document.getElementById('svg').hidden = false;
-  } else {
-    // handler for info button
-    fetchData(id, function(json) {
-      const data = json.data;
-      console.log(data);
-      let html = `<h2>${data.firstName} ${data.lastName}</h2>
-      <table>`;
-
-      let details = document.querySelector('#details__content');
-      for (const [key, value] of Object.entries(data)) {
-        console.log(key, value);
-        html += `<tr><td>${key}</td><td>${value}</td></tr>`;
-      }
-      html += '</table>'
-      details.innerHTML = html;
-      show('#details');
-    });
-  }
-});
-
-const form = document.querySelector('form#register');
-form.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const formData = new FormData(form);
-  const queryString = new URLSearchParams(formData).toString()
-
-  postData(form.getAttribute('action'), form.getAttribute('method'), queryString, function() {
-    fetchData(null, parseData);
   });
 
-  form.reset();
-  document.getElementById('test').innerHTML = '';
-  document.getElementById('svg').hidden = false;
-  show('#listing');
-});
+  document.querySelector('.table-wrapper').addEventListener('click', (e) => {
+    console.log(e.target);
+    const id = e.target.closest('td').nextElementSibling.textContent;
+
+    if (e.target.classList.contains('delete')) {
+      const queryString = new URLSearchParams({id: id}).toString();
+
+      postData('/api/delete.js', 'post', queryString, function() {
+        fetchData(null, parseData);
+      });
+      document.getElementById('listing__content').innerHTML = '';
+      document.getElementById('svg').hidden = false;
+    } else {
+      // handler for info button
+      fetchData(id, function(json) {
+        const data = json.data;
+        console.log(data);
+        let html = `<h2>${data.firstName} ${data.lastName}</h2>
+        <table>`;
+
+        let details = document.querySelector('#details__content');
+        for (const [key, value] of Object.entries(data)) {
+          console.log(key, value);
+          html += `<tr><td>${key}</td><td>${value}</td></tr>`;
+        }
+        html += '</table>'
+        details.innerHTML = html;
+        show('#details');
+      });
+    }
+  });
+
+  const addUserForm = document.querySelector('form#register');
+  addUserForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const formData = new FormData(addUserForm);
+    const queryString = new URLSearchParams(formData).toString()
+
+    postData(addUserForm.getAttribute('action'), addUserForm.getAttribute('method'), queryString, function() {
+      fetchData(null, parseData);
+    });
+
+    addUserForm.reset();
+    document.getElementById('listing__content').innerHTML = '';
+    document.getElementById('svg').hidden = false;
+    show('#listing');
+  });
+};
+
+addEventListeners();
+fetchData(null, parseData);

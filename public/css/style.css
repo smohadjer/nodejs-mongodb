@@ -1,3 +1,7 @@
+body, button, input {
+    font-size: 16px;
+}
+
 section {
     background: #eee;
     margin-top: 1em;
@@ -25,7 +29,7 @@ table {
 
 table th,
 table td {
-    padding: 10px 20px 10px 10px;
+    padding: 3px 10px 3px 3px;
     text-align: left;
 }
 
@@ -34,7 +38,7 @@ table tr:nth-child(even) td {
 }
 
 table td.actions {
-  min-width: 95px;
+  min-width: 110px;
 }
 
 .delete {
