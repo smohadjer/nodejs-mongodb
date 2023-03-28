@@ -7,7 +7,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "tsc": "tsc -p .",
-    "start": "npm run tsc & nodemon server.js"
+    "build": "npm run tsc",
+    "start": "npm run build & nodemon server.js"
   },
   "author": "",
   "license": "ISC",
